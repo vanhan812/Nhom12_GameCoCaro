@@ -1,67 +1,104 @@
 # Nhom12_GameCoCaro
-🎮 Caro Online - Nhóm 12 (Project Nhóm 8)
-Ứng dụng chơi cờ Caro (Gomoku) trực tuyến thời gian thực được xây dựng trên nền tảng Web, cho phép người chơi kết nối và thi đấu với nhau thông qua mã phòng.
+🎮 Caro Online – Nhóm 12 
+
+Ứng dụng chơi Cờ Caro (Gomoku) Online thời gian thực được xây dựng trên nền tảng Web, cho phép hai người chơi kết nối và thi đấu với nhau thông qua mã phòng.
+
+Dự án hướng tới việc áp dụng các công nghệ Web hiện đại và mô hình giao tiếp Realtime trong xây dựng ứng dụng nhiều người dùng.
 
 🌟 Tính năng nổi bật
-Chế độ phòng (Room-based): Tạo phòng mới với mã code ngẫu nhiên hoặc tham gia phòng hiện có.
 
-Thời gian thực (Real-time): Mọi nước đi và trạng thái sẵn sàng được đồng bộ hóa tức thì giữa hai người chơi.
+🔐 Chế độ phòng (Room-based)
 
-Quy trình chuyên nghiệp:
+Tạo phòng mới với mã code ngẫu nhiên
 
-Hệ thống đặt tên người dùng.
+Tham gia phòng có sẵn bằng mã
 
-Chế độ "Sẵn sàng" (Ready) đồng nhất từ cả hai phía trước khi bắt đầu.
+⚡ Thời gian thực (Real-time)
 
-Đếm ngược (Countdown) trước khi vào trận đấu.
+Đồng bộ hóa nước đi ngay lập tức
 
-Giao diện hiện đại: Thiết kế Responsive, hiệu ứng Gradient, và đường kẻ SVG đánh dấu chuỗi thắng cuộc.
+Trạng thái sẵn sàng được cập nhật cho cả hai người chơi
 
-Logic chuẩn: Bàn cờ 15x15, tự động kiểm tra thắng/thua theo luật caro cơ bản.
+🧩 Quy trình chơi chuyên nghiệp
+
+Nhập tên người dùng
+
+Cả hai người chơi phải Sẵn sàng (Ready) trước khi bắt đầu
+
+Đếm ngược (Countdown) trước khi vào trận
+
+🎨 Giao diện hiện đại
+
+Thiết kế Responsive
+
+Hiệu ứng Gradient
+
+Sử dụng SVG để vẽ đường thắng (5 quân liên tiếp)
+
+♟ Logic chuẩn Gomoku
+
+Bàn cờ kích thước 15x15
+
+Tự động kiểm tra thắng/thua theo luật caro cơ bản
 
 🛠 Công nghệ sử dụng
-Frontend: - HTML5, CSS3 (Modern UI/UX).
+🔹 Frontend
 
-Vanilla JavaScript (Xử lý logic Client).
+HTML5
 
-Socket.io Client (Giao tiếp thời gian thực).
+CSS3 (Modern UI/UX)
 
-Backend: - Node.js
+Vanilla JavaScript (xử lý logic phía client)
 
-Express.js (Phục vụ file tĩnh và API).
+Socket.io Client (giao tiếp thời gian thực)
 
-Socket.io (Xử lý WebSocket).
+🔹 Backend
+
+Node.js
+
+Express.js (phục vụ file tĩnh & API)
+
+Socket.io (xử lý WebSocket)
 
 🚀 Hướng dẫn cài đặt và khởi chạy
-Để chạy dự án này trên môi trường local, bạn cần cài đặt sẵn Node.js.
 
-1. Tải dự án
-Bash
+⚠️ Yêu cầu: Máy đã cài đặt Node.js
 
+1️⃣ Tải dự án
 git clone https://github.com/vanhan812/Nhom12_GameCoCaro.git
 cd Nhom12_GameCoCaro
-2. Cài đặt các thư viện phụ thuộc
-Dự án sử dụng Express và Socket.io. Chạy lệnh sau trong thư mục gốc:
 
-Bash
-
+2️⃣ Cài đặt các thư viện phụ thuộc
 npm install
-3. Khởi động Server
-Bash
 
+3️⃣ Khởi động Server
 npm start
-Server sẽ mặc định chạy tại địa chỉ: http://localhost:3000
 
-4. Cách chơi
-Mở trình duyệt và truy cập http://localhost:3000.
 
-Nhập tên của bạn và nhấn Tiếp tục.
+Server mặc định chạy tại:
+👉 http://localhost:3000
 
-Người chơi 1: Nhấn Tạo phòng mới, sau đó gửi mã phòng (ví dụ: A1B2C3) cho bạn bè.
+🎯 Cách chơi
 
-Người chơi 2: Nhập mã phòng vào ô và nhấn Vào phòng.
+Mở trình duyệt và truy cập:
+http://localhost:3000
 
-Cả hai nhấn Sẵn sàng để bắt đầu trận đấu.
-Để thử nghiệm chơi hai người, hãy mở thêm một cửa sổ ẩn danh khác hoặc trình duyệt khác với cùng địa chỉ trên.
+Nhập tên người chơi, nhấn Tiếp tục
+
+Người chơi 1
+
+Nhấn Tạo phòng mới
+
+Gửi mã phòng (ví dụ: A1B2C3) cho người chơi 2
+
+Người chơi 2
+
+Nhập mã phòng
+
+Nhấn Vào phòng
+
+Cả hai người chơi nhấn Sẵn sàng
+
+Đợi đếm ngược và bắt đầu trận đấu 🎉
 
 Bạn có muốn tôi hỗ trợ viết thêm tệp README.md chuyên nghiệp cho dự án này để đưa lên GitHub không?
