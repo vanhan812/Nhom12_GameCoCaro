@@ -27,6 +27,10 @@ const roomActions = document.getElementById("roomActions");
 const status = document.getElementById("status");
 const boardDiv = document.getElementById("board");
 const winLineSVG = document.getElementById("winLineSVG");
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+const btnSendChat = document.getElementById("btnSendChat");
+const chatContainer = document.getElementById("chatContainer");
 
 function showStep(step) {
   stepName.classList.add("hide");
@@ -35,6 +39,14 @@ function showStep(step) {
   if (step === "name") stepName.classList.remove("hide");
   if (step === "choose") stepChoose.classList.remove("hide");
   if (step === "room") roomInfo.classList.remove("hide");
+}
+
+function showChat() {
+  chatContainer.classList.remove("hide");
+}
+
+function hideChat() {
+  chatContainer.classList.add("hide");
 }
 
 function setStatus(text, color = "#1976d2", size = "1.15rem") {
@@ -81,6 +93,7 @@ socket.on("roomCreated", ({ code, players, hostId: hId }) => {
   isHost = playerId === hostId;
   updateRoom(players);
   showStep("room");
+  showChat();
   setStatus("Phòng đã tạo! Chia sẻ mã cho bạn bè để cùng chơi.", "#43cea2");
 });
 
@@ -90,6 +103,7 @@ socket.on("roomJoined", ({ code, players, hostId: hId }) => {
   isHost = playerId === hostId;
   updateRoom(players);
   showStep("room");
+  showChat();
   setStatus("Vào phòng thành công!", "#43cea2");
 });
 
@@ -114,6 +128,7 @@ socket.on("needName", () => {
 
 socket.on("playerLeft", () => {
   alert("Đối thủ đã rời phòng. Bạn sẽ được đưa về màn hình chính.");
+  hideChat();
   location.reload();
   updateRoomActions();
 });
@@ -410,3 +425,47 @@ function showCountdownModal(seconds) {
     }
   }, 900);
 }
+
+function addChatMessage(message, isOwn = false) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `chat-message ${isOwn ? "own" : "other"}`;
+  messageDiv.textContent = message;
+  chatMessages.appendChild(messageDiv);
+  // Scroll xuống dưới cùng
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendChatMessage() {
+  const message = chatInput.value.trim();
+  if (!message) return;
+  if (!roomCode) {
+    alert("Vui lòng vào phòng trước!");
+    return;
+  }
+  
+  console.log("Sending chat:", { code: roomCode, message, senderName: userName });
+  socket.emit("sendChat", { code: roomCode, message, senderName: userName });
+  chatInput.value = "";
+  chatInput.focus();
+}
+
+btnSendChat.onclick = sendChatMessage;
+chatInput.onkeypress = (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    sendChatMessage();
+  }
+};
+
+socket.on("receiveChat", ({ senderName, message }) => {
+  console.log("Received chat:", { senderName, message });
+  // Hiển thị tin nhắn với "Bạn:" nếu là tin của mình, ngược lại hiển thị tên của người khác
+  const isOwn = senderName === userName;
+  const displayMessage = isOwn ? `Bạn: ${message}` : `${senderName}: ${message}`;
+  addChatMessage(displayMessage, isOwn);
+});
+
+socket.on("chatError", (error) => {
+  console.error("Chat error:", error);
+  alert("Lỗi gửi tin nhắn: " + error);
+});

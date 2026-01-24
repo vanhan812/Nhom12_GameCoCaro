@@ -264,6 +264,20 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Chat handler
+  socket.on("sendChat", ({ code, message, senderName }) => {
+    console.log(`Chat in room ${code}: ${senderName}: ${message}`);
+    if (!rooms[code]) {
+      socket.emit("chatError", "Phòng không tồn tại");
+      return;
+    }
+    // Gửi tin nhắn tới tất cả client trong phòng
+    io.to(code).emit("receiveChat", {
+      senderName: senderName,
+      message: message,
+    });
+  });
+
   // ... phần còn lại giữ nguyên ...
 });
 
